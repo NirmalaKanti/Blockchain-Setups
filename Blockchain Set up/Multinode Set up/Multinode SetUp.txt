@@ -1,0 +1,97 @@
+To start with blockchain network, install the required softwares for 'software used directory' and the source code can be found in the github repo.
+To setup the blockchain environment follow the steps:
+
+1] Download the Go lang from this link
+
+
+	https://golang.org/doc/install?download=go1.16.linux-amd64.tar.gz
+
+
+2] Extract it in /usr/local 
+
+
+3]Create a folder 
+
+	mkdir go
+	cd go
+	mkdir src pkg bin
+	
+
+
+3] Now enter cd and open .profile to give path
+
+	sudo gedit .profile
+
+4]Enter at last line and Save it
+
+	export GOPATH=~/go
+	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+5]For test 
+	source .profile
+
+6]Check
+	go env
+7]create a workspace
+	cd ~/go/src/
+	mkdir github.com
+	cd github.com
+	mkdir ethereum
+	cd ethereum
+8] clone a source files
+	git clone link######
+
+
+To setup the multinode setup in the blockchain follow the below mentioned steps.
+
+1] Create a Workspcae for Blockchain
+	sudo mkdir ethereum 
+	cd ethereum
+	sudo mkdir node1 node2 node3 node4
+
+
+2] Create a account for each Nodes and write down the public key 
+	sudo ./geth --datadir ~/ethereum/node1 account new 
+	sudo ./geth --datadir ~/ethereum/node2 account new 
+	sudo ./geth --datadir ~/ethereum/node3 account new 
+	sudo ./geth --datadir ~/ethereum/node4 account new 
+
+
+3] Create a genesis file using Puppeth.or use existing genesis file with your acccounts public key (you need to put your accounts public key in that genesis fiel) 
+	
+
+
+
+4] Inintialize the nodes with genesis file.      
+	sudo ./geth --datadir ~/ethereum/node1 init genesis.json
+	sudo ./geth --datadir ~/ethereum/node2 init genesis.json
+	sudo ./geth --datadir ~/ethereum/node3 init genesis.json
+	sudo ./geth --datadir ~/ethereum/node4 init genesis.json
+
+
+5] Create bootnode 
+	sudo bootnode -genkey boot.key
+
+6]Run bootnode and write down the enode key
+	sudo bootnode -nodekey boot.key
+   example: enode://6d20dc312a4c9262a7251a68dc539db0557123309c6aae8b34bad9b1ee0afc1bf36d3be604ebec067ad7f962ec745fc2749bfcba868a01ce616542f22bafea58@127.0.0.1:0?discport=30301
+
+7] initialize using that enode 
+
+
+
+sudo ./geth --allow-insecure-unlock --datadir ~/ethereum/node1/ --syncmode 'full' --port 30311 --http --http.addr 'localhost' --http.port 8501 --http.api 'personal,eth,net,web3,txpool,miner' --bootnodes 'enode://13c62bfa14083fc67784dc58a32adbe20830e9b23d550ccd4f124e1e7c11b33cdbf0d09d6024a3e8df60673da471e791c0144b6122b7195e4389957b30316c12@127.0.0.1:0?discport=30301' --networkid 1515 --miner.gasprice '1' --mine console
+
+sudo ./geth --allow-insecure-unlock --datadir ~/ethereum/node2/ --syncmode 'full' --port 30312 --http --http.addr 'localhost' --http.port 8502 --http.api 'personal,eth,net,web3,txpool,miner' --bootnodes 'enode://6d20dc312a4c9262a7251a68dc539db0557123309c6aae8b34bad9b1ee0afc1bf36d3be604ebec067ad7f962ec745fc2749bfcba868a01ce616542f22bafea58@127.0.0.1:0?discport=30301' --networkid 1515 --miner.gasprice '1' --mine console
+
+sudo ./geth --allow-insecure-unlock --datadir ~/ethereum/node3/ --syncmode 'full' --port 30313 --http --http.addr 'localhost' --http.port 8503 --http.api 'personal,eth,net,web3,txpool,miner' --bootnodes 'enode://6d20dc312a4c9262a7251a68dc539db0557123309c6aae8b34bad9b1ee0afc1bf36d3be604ebec067ad7f962ec745fc2749bfcba868a01ce616542f22bafea58@127.0.0.1:0?discport=30301' --networkid 1515 --miner.gasprice '1' --mine console
+
+sudo ./geth --allow-insecure-unlock --datadir ~/ethereum/node4/ --syncmode 'full' --port 30314 --http --http.addr 'localhost' --http.port 8504 --http.api 'personal,eth,net,web3,txpool,miner' --bootnodes 'enode://6d20dc312a4c9262a7251a68dc539db0557123309c6aae8b34bad9b1ee0afc1bf36d3be604ebec067ad7f962ec745fc2749bfcba868a01ce616542f22bafea58@127.0.0.1:0?discport=30301' --networkid 1515 --miner.gasprice '1' --mine console
+
+
+
+
+
+
+
+
